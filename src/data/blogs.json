@@ -1,0 +1,22 @@
+{
+  "blogs": [
+    {
+      "id": "setouchi-architecture",
+      "title": "瀬戸内海の建築をめぐる",
+      "content": "瀬戸内海の建築を巡った。男木島、豊島、直島を巡って建築を見た。あああああああああああああああああ",
+      "createdAt": "2025/8/17"
+    },
+    {
+      "id": "kanazawa-architecture",
+      "title": "石川県の建築をめぐる",
+      "content": "ゼミ旅行で石川、富山、福井の建築を巡った。あああああああああああああああああ",
+      "createdAt": "2025/8/19"
+    },
+    {
+      "id": "fukuoka-architecture",
+      "title": "北九州の建築をめぐる",
+      "content": "ゼミ旅行で福島の建築を巡った。あああああああああああああああああ",
+      "createdAt": "2025/8/20"
+    }
+  ]
+}

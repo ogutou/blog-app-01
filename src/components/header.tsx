@@ -20,14 +20,20 @@ const Header = () => {
           <ul className="flex items-center space-x-2 lg:flex ">
             <li>
               <Link href="/blogs/new">
-                <Button variant="outline" className="bg-[#C2E5F2]">
+                <Button
+                  variant="outline"
+                  className="bg-[#C2E5F2] cursor-pointer"
+                >
                   post
                 </Button>
               </Link>
             </li>
             <li>
               <Link href="/">
-                <Button variant="outline" className="bg-[#C2E5F2]">
+                <Button
+                  variant="outline"
+                  className="bg-[#C2E5F2] cursor-pointer"
+                >
                   sign in
                 </Button>
               </Link>
