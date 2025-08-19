@@ -1,7 +1,16 @@
 import React from "react";
 import Image from "next/image";
+import { getDetailBlog } from "@/blogAPI";
+import { Blog } from "@/types";
 
-const Blog = ({ params }: { params: { id: string } }) => {
+type DetaiBlogsProps = {
+  params: Promise<{ id: string }>;
+};
+
+const DetailBlog = async ({ params }: DetaiBlogsProps) => {
+  const { id } = await params;
+  const detailBlog: Blog = await getDetailBlog(id);
+
   return (
     <div className="max-w-3xl mx-auto p-5">
       <Image
@@ -10,12 +19,12 @@ const Blog = ({ params }: { params: { id: string } }) => {
         width={1280}
         height={300}
       />
-      <h1 className="text-4xl text-center mb-10 mt-10">タイトル</h1>
+      <h1 className="text-4xl text-center mb-10 mt-10">{detailBlog.title}</h1>
       <div className="text-lg leading-relaxed text-justify">
-        <p>本文</p>
+        <p>{detailBlog.content}</p>
       </div>
     </div>
   );
 };
 
-export default Blog;
+export default DetailBlog;

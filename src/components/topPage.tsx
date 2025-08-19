@@ -2,14 +2,10 @@ import React from "react";
 
 const TopPage = () => {
   return (
-    <div className="py-5 lg:py-20 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl px-4 md:px-24 lg:px-8">
+    <div className="container px-6 pt-10 mx-auto">
       <div className="flex items-center justify-center bg-[#04C4D9] p-6 h-100">
         <div
-          data-hs-carousel='{
-    "loadingclassNamees": "opacity-0",
-    "dotsItemclassNamees": "hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-blue-500 dark:hs-carousel-active:border-blue-500",
-    "isAutoPlay": true
-  }'
+          data-hs-carousel='{"loadingclassNamees": "opacity-0","dotsItemclassNamees": "hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-blue-500 dark:hs-carousel-active:border-blue-500","isAutoPlay": true}'
           className="relative"
         >
           <div className="hs-carousel relative overflow-hidden w-full min-h-96 bg-white rounded-lg">
