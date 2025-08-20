@@ -4,6 +4,7 @@ import React, { useState, DragEvent, ChangeEvent } from "react";
 import { LuUpload } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { NewBlog } from "@/blogAPI";
+import { useRouter } from "next/navigation";
 
 export default function CreatePost() {
   // const [dragActive, setDragActive] = useState(false);
@@ -38,13 +39,20 @@ export default function CreatePost() {
   // };
 
   // const [id, setId] = useState<string>("");
+  const router = useRouter();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [id, setId] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(title, content);
-    // await NewBlog();
+    // console.log(id, title, content);
+    setLoading(true);
+    await NewBlog(id, title, content);
+    setLoading(false);
+    router.push("/");
+    router.refresh();
   };
 
   return (
@@ -52,36 +60,37 @@ export default function CreatePost() {
       <div className="w-full max-w-xl md:w-1/2 px-4 py-10 flex flex-col gap-4">
         <p className="text-xl text-center p-3">ブログ新規作成</p>
         {/* Dropzone */}
-        <div>
-          <input
-            id="file-input"
-            type="file"
-            multiple
-            accept=".png,.jpg,.jpeg"
-            // onChange={handleChange}
-            className="hidden"
-          />
-          <label
-            htmlFor="file-input"
-            // onDragOver={handleDragOver}
-            // onDragLeave={handleDragLeave}
-            // onDrop={handleDrop}
-            className={[
-              "flex flex-col items-center justify-center gap-2",
-              "rounded-lg border-2 border-dashed p-8 transition",
-              // dragActive
-              //   ? "border-blue-500 bg-blue-50"
-              //   : "border-gray-300 hover:border-gray-400",
-              "cursor-pointer",
-            ].join(" ")}
-          >
-            <LuUpload className="h-6 w-6 text-gray-500" />
-            <div className="text-sm">Drag and drop files here</div>
-            <div className="text-xs text-gray-500">.png, .jpg up to 5MB</div>
-          </label>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              id="file-input"
+              type="file"
+              multiple
+              accept=".png,.jpg,.jpeg"
+              // onChange={handleChange}
+              className="hidden"
+            />
+            <label
+              htmlFor="file-input"
+              // onDragOver={handleDragOver}
+              // onDragLeave={handleDragLeave}
+              // onDrop={handleDrop}
+              className={[
+                "flex flex-col items-center justify-center gap-2",
+                "rounded-lg border-2 border-dashed p-8 transition",
+                // dragActive
+                //   ? "border-blue-500 bg-blue-50"
+                //   : "border-gray-300 hover:border-gray-400",
+                "cursor-pointer",
+              ].join(" ")}
+            >
+              <LuUpload className="h-6 w-6 text-gray-500" />
+              <div className="text-sm">Drag and drop files here</div>
+              <div className="text-xs text-gray-500">.png, .jpg up to 5MB</div>
+            </label>
 
-          {/* ファイル一覧 */}
-          {/* {files.length > 0 && (
+            {/* ファイル一覧 */}
+            {/* {files.length > 0 && (
             <ul className="mt-3 divide-y rounded-md border">
               {files.map((f, i) => (
                 <li key={`${f.name}-${i}`} className="px-3 py-2 text-sm">
@@ -93,21 +102,35 @@ export default function CreatePost() {
               ))}
             </ul>
           )} */}
-        </div>
+          </div>
 
-        {/* Inputs */}
-        <input
-          className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="入力"
-          type="text"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <textarea
-          className="w-full min-h-[120px] rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="入力"
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <form onSubmit={handleSubmit}>投稿</form>
+          {/* Inputs */}
+          <input
+            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="入力"
+            type="text"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="入力"
+            type="text"
+            onChange={(e) => setId(e.target.value)}
+          />
+          <textarea
+            className="w-full min-h-[120px] rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="入力"
+            onChange={(e) => setContent(e.target.value)}
+          />
+          <Button
+            variant="outline"
+            className={`bg-[#07B2D9] cursor-pointer ${
+              loading ? "cursor-not-allowed" : "hover:bg-[#04C4D9]"
+            }`}
+          >
+            投稿
+          </Button>
+        </form>
       </div>
     </div>
   );

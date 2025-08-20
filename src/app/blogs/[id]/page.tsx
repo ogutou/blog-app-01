@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { getDetailBlog } from "@/blogAPI";
 import { Blog } from "@/types";
+import DeleteButton from "@/components/deleteButton";
 
 type DetailBlogsProps = {
   params: Promise<{ id: string }>;
@@ -22,6 +23,9 @@ const DetailBlog = async ({ params }: DetailBlogsProps) => {
       <h1 className="text-4xl text-center mb-10 mt-10">{detailBlog.title}</h1>
       <div className="text-lg leading-relaxed text-justify">
         <p>{detailBlog.content}</p>
+      </div>
+      <div>
+        <DeleteButton id={detailBlog.id} />
       </div>
     </div>
   );

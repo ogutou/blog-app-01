@@ -9,11 +9,24 @@ export const getAllBlogs = async (): Promise<Blog[]> => {
     throw new Error("errorが発生しました");
   }
 
-  // await new Promise((resolve) => setTimeout(resolve, 1500));
+  await new Promise((resolve) => setTimeout(resolve, 1500));
 
   return results;
 
   // console.log(result);
+};
+
+export const getAllBlogsTitle = async (): Promise<Blog[]> => {
+  const res = await fetch("http://localhost:3001/blogs");
+
+  const blogTitles = await res.json();
+  if (!res.ok) {
+    throw new Error("エラーが発生しました");
+  }
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  return blogTitles;
 };
 
 export const getDetailBlog = async (id: string): Promise<Blog> => {
@@ -29,7 +42,7 @@ export const getDetailBlog = async (id: string): Promise<Blog> => {
     throw new Error("errorが発生しました");
   }
 
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const result = await res.json();
 
   return result;
@@ -54,10 +67,26 @@ export const NewBlog = async (
     throw new Error("errorが発生しました");
   }
 
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const newBlog = await res.json();
 
   return newBlog;
+
+  // console.log(result);
+};
+export const deleteBlog = async (id: string): Promise<Blog> => {
+  const res = await fetch(`http://localhost:3001/blogs/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("errorが発生しました");
+  }
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const deleteBlog = await res.json();
+
+  return deleteBlog;
 
   // console.log(result);
 };

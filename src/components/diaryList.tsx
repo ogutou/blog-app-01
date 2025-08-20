@@ -44,7 +44,9 @@ const DiaryList = ({ blogs }: BlogsListProps) => {
           </div>
         </section>
         <aside className="hidden lg:block md:top-20 w-[18rem] max-h-[calc(100vh-5rem)] overflow-auto rounded-md bg-[#88DFF2] p-6">
-          リスト
+          {blogs.map((blogTitle) => {
+            return <div key={blogTitle.id}>{blogTitle.title}</div>;
+          })}
         </aside>
       </div>
     </div>
