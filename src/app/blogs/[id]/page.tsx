@@ -3,11 +3,11 @@ import Image from "next/image";
 import { getDetailBlog } from "@/blogAPI";
 import { Blog } from "@/types";
 
-type DetaiBlogsProps = {
+type DetailBlogsProps = {
   params: Promise<{ id: string }>;
 };
 
-const DetailBlog = async ({ params }: DetaiBlogsProps) => {
+const DetailBlog = async ({ params }: DetailBlogsProps) => {
   const { id } = await params;
   const detailBlog: Blog = await getDetailBlog(id);
 

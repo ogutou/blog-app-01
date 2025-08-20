@@ -2,44 +2,55 @@
 
 import React, { useState, DragEvent, ChangeEvent } from "react";
 import { LuUpload } from "react-icons/lu";
+import { Button } from "@/components/ui/button";
+import { NewBlog } from "@/blogAPI";
 
 export default function CreatePost() {
-  const [dragActive, setDragActive] = useState(false);
-  const [files, setFiles] = useState<File[]>([]);
+  // const [dragActive, setDragActive] = useState(false);
+  // const [files, setFiles] = useState<File[]>([]);
 
-  const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
+  // const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setDragActive(true);
+  // };
+
+  // const handleDragLeave = (e: DragEvent<HTMLLabelElement>) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setDragActive(false);
+  // };
+
+  // const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setDragActive(false);
+  //   const dropped = Array.from(e.dataTransfer.files || []);
+  //   if (!dropped.length) return;
+  //   setFiles((prev) => [...prev, ...dropped].slice(0, 10));
+  // };
+
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const selected = Array.from(e.target.files || []);
+  //   if (!selected.length) return;
+  //   setFiles((prev) => [...prev, ...selected].slice(0, 10));
+  //   e.currentTarget.value = ""; // 同じファイル再選択でも発火するように
+  // };
+
+  // const [id, setId] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    e.stopPropagation();
-    setDragActive(true);
-  };
-
-  const handleDragLeave = (e: DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-  };
-
-  const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-    const dropped = Array.from(e.dataTransfer.files || []);
-    if (!dropped.length) return;
-    setFiles((prev) => [...prev, ...dropped].slice(0, 10));
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const selected = Array.from(e.target.files || []);
-    if (!selected.length) return;
-    setFiles((prev) => [...prev, ...selected].slice(0, 10));
-    e.currentTarget.value = ""; // 同じファイル再選択でも発火するように
+    console.log(title, content);
+    // await NewBlog();
   };
 
   return (
     <div className="min-h-screen flex justify-center">
       <div className="w-full max-w-xl md:w-1/2 px-4 py-10 flex flex-col gap-4">
         <p className="text-xl text-center p-3">ブログ新規作成</p>
-
         {/* Dropzone */}
         <div>
           <input
@@ -47,20 +58,20 @@ export default function CreatePost() {
             type="file"
             multiple
             accept=".png,.jpg,.jpeg"
-            onChange={handleChange}
+            // onChange={handleChange}
             className="hidden"
           />
           <label
             htmlFor="file-input"
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
+            // onDragOver={handleDragOver}
+            // onDragLeave={handleDragLeave}
+            // onDrop={handleDrop}
             className={[
               "flex flex-col items-center justify-center gap-2",
               "rounded-lg border-2 border-dashed p-8 transition",
-              dragActive
-                ? "border-blue-500 bg-blue-50"
-                : "border-gray-300 hover:border-gray-400",
+              // dragActive
+              //   ? "border-blue-500 bg-blue-50"
+              //   : "border-gray-300 hover:border-gray-400",
               "cursor-pointer",
             ].join(" ")}
           >
@@ -70,7 +81,7 @@ export default function CreatePost() {
           </label>
 
           {/* ファイル一覧 */}
-          {files.length > 0 && (
+          {/* {files.length > 0 && (
             <ul className="mt-3 divide-y rounded-md border">
               {files.map((f, i) => (
                 <li key={`${f.name}-${i}`} className="px-3 py-2 text-sm">
@@ -81,7 +92,7 @@ export default function CreatePost() {
                 </li>
               ))}
             </ul>
-          )}
+          )} */}
         </div>
 
         {/* Inputs */}
@@ -89,16 +100,14 @@ export default function CreatePost() {
           className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="入力"
           type="text"
-        />
-        <input
-          className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="入力"
-          type="text"
+          onChange={(e) => setTitle(e.target.value)}
         />
         <textarea
           className="w-full min-h-[120px] rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="入力"
+          onChange={(e) => setContent(e.target.value)}
         />
+        <form onSubmit={handleSubmit}>投稿</form>
       </div>
     </div>
   );
